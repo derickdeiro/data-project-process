@@ -4,7 +4,9 @@ on: pull_request
 jobs:
     test:
         runs-on: ubuntu-latest
-
+        strategy:
+          matrix:
+            python-version: [3.11]
         steps:
             - name: Baixar o repositório
               uses: actions/checkout@v4
@@ -12,7 +14,7 @@ jobs:
             - name: Instalar o Python
               uses: actions/setup-python@v5
               with:
-                python-version: python3.11
+                python-version: ${{ matrix.python-version }}
 
             - name: Instalo as libs
               run: pip install -r requirements.txt
